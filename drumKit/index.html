@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS Drum Kit</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div class="keys">
+      <div data-key="65" class="key">
+        <kbd>A</kbd>
+        <span class="sound">clap</span>
+      </div>
+
+      <div data-key="83" class="key">
+        <kbd>S</kbd>
+        <span class="sound">hithat</span>
+      </div>
+      <div data-key="68" class="key">
+        <kbd>D</kbd>
+        <span class="sound">kick</span>
+      </div>
+      <div data-key="70" class="key">
+        <kbd>F</kbd>
+        <span class="sound">openhat</span>
+      </div>
+      <div data-key="71" class="key">
+        <kbd>G</kbd>
+        <span class="sound">boom</span>
+      </div>
+      <div data-key="72" class="key">
+        <kbd>H</kbd>
+        <span class="sound">ride</span>
+      </div>
+      <div data-key="74" class="key">
+        <kbd>j</kbd>
+        <span class="sound">snare</span>
+      </div>
+      <div data-key="75" class="key">
+        <kbd>k</kbd>
+        <span class="sound">tom</span>
+      </div>
+      <div data-key="76" class="key">
+        <kbd>l</kbd>
+        <span class="sound">tink</span>
+      </div>
+    </div>
+
+    <audio
+      data-key="65"
+      src="https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3"
+    ></audio>
+    <audio
+      data-key="83"
+      src="https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3"
+    ></audio>
+    <audio
+      data-key="68"
+      src="https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3"
+    ></audio>
+    <audio
+      data-key="70"
+      src="https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3"
+    ></audio>
+    <audio
+      data-key="71"
+      src="https://s3.amazonaws.com/freecodecamp/drums/Chord_1.mp3"
+    ></audio>
+    <audio
+      data-key="72"
+      src="https://s3.amazonaws.com/freecodecamp/drums/Dry_Ohh.mp3"
+    ></audio>
+    <audio
+      data-key="74"
+      src="https://s3.amazonaws.com/freecodecamp/drums/punchy_kick_1.mp3"
+    ></audio>
+    <audio
+      data-key="75"
+      src="https://s3.amazonaws.com/freecodecamp/drums/Brk_Snr.mp3"
+    ></audio>
+    <audio
+      data-key="76"
+      src="https://s31.aconvert.com/convert/p3r68-cdx67/17rzl-rozll.mp3"
+    ></audio>
+
+    <script>
+      //    console.log(e.keyCode);
+      function playSound(e) {
+        const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+        // console.log(audio);
+        if (!audio) {
+          return; //stop the function fron running altogether
+        }
+        audio.currentTime = 0;
+        audio.play();
+        const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+        console.log(key);
+        key.classList.add("playing");
+      }
+
+      function removeTransition(e) {
+        // console.log(e);
+        if (e.propertyName !== "transform") {
+          return;
+        }
+        console.log(e.propertyName);
+        this.classList.remove("playing");
+      }
+
+      const keys = document.querySelectorAll(".key");
+      keys.forEach((key) =>
+        key.addEventListener("transitionend", removeTransition)
+      );
+      
+      window.addEventListener("keydown", playSound);
+
+    </script>
+  </body>
+</html>
