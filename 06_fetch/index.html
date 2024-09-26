@@ -6,6 +6,35 @@
     <title>Document</title>
   </head>
   <body>
+    <style>
+        body {
+          font-family: sans-serif;
+          padding: 2rem;
+        }
+        input {
+          width: 100%;
+          padding: 1rem;
+          font-size: 1.2rem;
+        }
+        .suggestions {
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          margin-top: 0.5rem;
+          list-style: none;
+          padding: 0;
+        }
+        .suggestions li {
+          padding: 1rem;
+          border-bottom: 1px solid #ddd;
+          cursor: pointer;
+        }
+        .suggestions li:last-child {
+          border-bottom: none;
+        }
+        .suggestions li.highlight {
+          background-color: #f0f0f0;
+        }
+      </style>
 
     <form action="" class="search-form">
         <input type="text" placeholder="City" class="search">
