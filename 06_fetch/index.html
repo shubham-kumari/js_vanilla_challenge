@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+
+    <form action="" class="search-form">
+        <input type="text" placeholder="City" class="search">
+        <ul class="suggestions">
+            <li>Filter for a city</li>
+            <li>or state</li>
+        </ul>
+    </form>
+
+
+    <script>
+      const endpoint =
+        "https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/master/cities.json";
+    let cities = [];
+    //   fetch returns a promise
+    //   const prom = fetch(endpoint);
+    //   console.log(prom);
+    fetch(endpoint)
+        .then((blob) => blob.json())  // this will also give a promise
+        .then((data) => cities = [...data])
+
+
+    function findMatches(wordToMatch, cities){
+        return cities.filter((palce) => {
+            // here we need to figure out if the city or state matches what was searched
+            const regex = new RegExp(wordToMatch, 'gi')
+            
+            return palce.name.match(regex) || palce.country_name.match(regex)
+        })
+    }
+
+    function displayMatches(){
+        // console.log(this.value);
+        const matchArray = findMatches(this.value, cities)
+        // console.log(matchArray);
+        // const cityName = palce.name.replace(regex, `<span class="h1">${this.value}</span>`)
+        //     const countryName = palce.country_name.replace(regex, `<span class="h1">${this.value}</span>`)
+
+        const html = matchArray.map((place) => {
+            return `
+            <li>
+                <span class="name">${place.name}, ${place.country_name}, </span>
+                <span class="state">${place.state_name}</span>
+                </li>
+            `
+        }).join('');
+        suggestions.innerHTML = html
+    }
+    // displayMatches()
+    const searchInput = document.querySelector('.search')
+    const suggestions = document.querySelector('.suggestions')
+    searchInput.addEventListener('change', displayMatches)
+    searchInput.addEventListener('keyup', displayMatches)
+
+    </script>
+  </body>
+</html>
