@@ -53,7 +53,7 @@
     //   const prom = fetch(endpoint);
     //   console.log(prom);
     fetch(endpoint)
-        .then((blob) => blob.json())  // this will also give a promise
+        .then((response) => response.json())  // this will also give a promise
         .then((data) => cities = [...data])
 
 
