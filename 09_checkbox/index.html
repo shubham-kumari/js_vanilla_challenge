@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        .inbox {
+            width: 400px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .item input[type="checkbox"] {
+            margin-right: 15px;
+        }
+
+        .item p {
+            margin: 0;
+            color: #333;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+        }
+
+        .item:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+
+    <div class="inbox">
+        <div class="item">
+            <input type="checkbox">
+            <p>This is an Inbox layout</p>
+        </div>
+        <div class="item">
+            <input type="checkbox">
+            <p>This is an Inbox layout</p>
+        </div>
+        <div class="item">
+            <input type="checkbox">
+            <p>This is an Inbox layout</p>
+        </div>
+        <div class="item">
+            <input type="checkbox">
+            <p>This is an Inbox layout</p>
+        </div>
+        <div class="item">
+            <input type="checkbox">
+            <p>This is an Inbox layout</p>
+        </div>
+        <div class="item">
+            <input type="checkbox">
+            <p>This is an Inbox layout</p>
+        </div>
+        <div class="item">
+            <input type="checkbox">
+            <p>This is an Inbox layout</p>
+        </div>
+    </div>
+
+    <script>
+        const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]')
+        // console.log(checkboxes);
+        let lastChecked;
+        function handleCheck(e){
+            // console.log(e);
+            // if they had shift key down
+            let inBeetween = false
+            if(e.shiftKey && this.checked){
+                //loop over every single checkbox
+                checkboxes.forEach((checkbox) => {
+                    // console.log(checkbox)
+                    if(checkbox === this || checkbox === lastChecked){
+                        inBeetween = !inBeetween
+                    }
+
+                    if(inBeetween){
+                        checkbox.checked = true;
+                    }
+                })
+            }
+            lastChecked = this
+        }
+        checkboxes.forEach((checkbox) => checkbox.addEventListener('click', handleCheck))
+    </script>
+</body>
+</html>
